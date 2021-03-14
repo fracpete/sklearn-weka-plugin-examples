@@ -41,7 +41,7 @@ def main():
     y = to_nominal_labels(y)
 
     helper.print_info("Building J48")
-    j48 = WekaEstimator(classname="weka.classifiers.trees.J48")
+    j48 = WekaEstimator(classname="weka.classifiers.trees.J48", options=["-M", "3"])
     print(j48.to_commandline())
     j48.fit(X, y)
     print(j48)
@@ -49,7 +49,7 @@ def main():
         print(r, "->", j48.predict(r))
 
     helper.print_info("Cross-validate J48")
-    j48 = WekaEstimator(classname="weka.classifiers.trees.J48")
+    j48 = WekaEstimator(classname="weka.classifiers.trees.J48", options=["-M", "3"])
     scores = cross_val_score(j48, X, y, cv=10, scoring='accuracy')
     print("single scoring method:\n", scores)
     multi_scores = cross_validate(j48, X, y, cv=10, scoring=['accuracy'])
