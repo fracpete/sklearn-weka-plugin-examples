@@ -1,10 +1,11 @@
 import os
 import scikit.weka.jvm as jvm
 import scikitwekaexamples.helper as helper
+import sklearn.datasets
 import traceback
 
 from scikit.weka.classifiers import WekaEstimator
-from scikit.weka.dataset import load_arff
+from scikit.weka.dataset import load_arff, to_nominal_labels
 from sklearn.model_selection import cross_validate, cross_val_score
 
 def main():
@@ -36,6 +37,8 @@ def main():
     iris_file = helper.get_data_dir() + os.sep + "iris.arff"
     helper.print_info("Loading dataset: " + iris_file)
     X, y, meta = load_arff(iris_file, "last")
+    # byte strings as labels doesn't work?
+    y = to_nominal_labels(y)
 
     helper.print_info("Building J48")
     j48 = WekaEstimator(classname="weka.classifiers.trees.J48")
