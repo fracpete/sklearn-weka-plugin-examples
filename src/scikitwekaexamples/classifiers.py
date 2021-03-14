@@ -49,7 +49,7 @@ def main():
     j48 = WekaEstimator(classname="weka.classifiers.trees.J48")
     scores = cross_val_score(j48, X, y, cv=10, scoring='accuracy')
     print("single scoring method:\n", scores)
-    multi_scores = cross_validate(j48, X, y, cv=10, scoring=['neg_root_mean_squared_error', 'accuracy'])
+    multi_scores = cross_validate(j48, X, y, cv=10, scoring=['accuracy'])
     print("multiple scoring methods\n", multi_scores)
 
 
