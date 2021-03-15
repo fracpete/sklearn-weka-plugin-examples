@@ -1,12 +1,12 @@
 import os
 import scikit.weka.jvm as jvm
 import scikitwekaexamples.helper as helper
-import sklearn.datasets
 import traceback
 
 from scikit.weka.classifiers import WekaEstimator
 from scikit.weka.dataset import load_arff, to_nominal_labels
 from sklearn.model_selection import cross_validate, cross_val_score
+
 
 def main():
     """
@@ -23,8 +23,9 @@ def main():
     print(lr.to_commandline())
     lr.fit(X, y)
     print(lr)
-    for r in X:
-        print(r, "->", lr.predict(r))
+    scores = lr.predict(X)
+    for i, r in enumerate(X):
+        print(r, "->", scores[i])
 
     helper.print_info("Cross-validate LinearRegression")
     lr = WekaEstimator(classname="weka.classifiers.functions.LinearRegression")
@@ -45,8 +46,10 @@ def main():
     print(j48.to_commandline())
     j48.fit(X, y)
     print(j48)
-    for r in X:
-        print(r, "->", j48.predict(r))
+    scores = j48.predict(X)
+    probas = j48.predict_proba(X)
+    for i, r in enumerate(X):
+        print(r, "->", scores[i], probas[i])
 
     helper.print_info("Cross-validate J48")
     j48 = WekaEstimator(classname="weka.classifiers.trees.J48", options=["-M", "3"])
@@ -54,6 +57,16 @@ def main():
     print("single scoring method:\n", scores)
     multi_scores = cross_validate(j48, X, y, cv=10, scoring=['accuracy'])
     print("multiple scoring methods\n", multi_scores)
+
+    # for testing native sklean classifier
+    # from sklearn.svm import SVC
+    # helper.print_info("Building SVC")
+    # svc = SVC(C=2.3, probability=True)
+    # svc.fit(X, y)
+    # scores = svc.predict(X)
+    # probas = svc.predict_proba(X)
+    # for i, r in enumerate(X):
+    #     print(r, "->", scores[i], probas[i])
 
 
 if __name__ == "__main__":
