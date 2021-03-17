@@ -5,7 +5,17 @@ import traceback
 
 from scikit.weka.classifiers import WekaEstimator
 from scikit.weka.dataset import load_arff, to_nominal_labels
-from sklearn.model_selection import cross_validate, cross_val_score
+from sklearn.model_selection import cross_validate, cross_val_score, train_test_split
+from sklearn import metrics
+
+
+matplotlib_available = False
+try:
+    import matplotlib
+    import matplotlib.pyplot as plt
+    matplotlib_available = True
+except ImportError:
+    pass
 
 
 def main():
@@ -33,6 +43,31 @@ def main():
     print("single scoring method:\n", scores)
     multi_scores = cross_validate(lr, X, y, cv=10, scoring=['neg_root_mean_squared_error', 'r2'])
     print("multiple scoring methods\n", multi_scores)
+
+    helper.print_info("LinearRegression (train/test split)")
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=1 / 3, random_state=0)
+    lr = WekaEstimator(classname="weka.classifiers.functions.LinearRegression")
+    lr.fit(X_train, y_train)
+    y_predicted = lr.predict(X_test)
+    print("y_test:", y_test)
+    print("y_pred:", y_predicted)
+    mae = metrics.mean_absolute_error(y_test, y_predicted)
+    mse = metrics.mean_squared_error(y_test, y_predicted)
+    r2 = metrics.r2_score(y_test, y_predicted)
+    print("Statistics:")
+    print("- MAE:", mae)
+    print("- MSE:", mse)
+    print("- R2 score:", r2)
+    if matplotlib_available:
+        fig, ax = plt.subplots()
+        ax.scatter(y_test, y_predicted, edgecolors=(0, 0, 1))
+        ax.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--', lw=3)
+        ax.set_xlabel("Actual")
+        ax.set_ylabel("Predicted")
+        ax.set_title("Classifier errors")
+        plt.show()
+    else:
+        print("Install matplotlib (pip install matplotlib) to enable plotting!")
 
     # classification
     iris_file = helper.get_data_dir() + os.sep + "iris.arff"
