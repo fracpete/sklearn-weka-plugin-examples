@@ -16,7 +16,7 @@ def main():
     helper.print_info("Loading dataset: " + iris_file)
     X, y, meta = load_arff(iris_file, "last")
 
-    helper.print_info("Standardizing data (incl class)")
+    helper.print_info("Simple K-Means")
     cl = WekaCluster(classname="weka.clusterers.SimpleKMeans", options=["-N", "3"])
     print(cl.to_commandline())
     clusters = cl.fit_predict(X)
