@@ -5,8 +5,10 @@ import traceback
 
 from scikit.weka.classifiers import WekaEstimator
 from scikit.weka.dataset import load_arff, to_nominal_labels
+from scikit.weka.preprocessing import MakeNominal
 from sklearn.model_selection import cross_validate, cross_val_score, train_test_split
 from sklearn import metrics
+from sklearn.datasets import load_iris
 
 
 matplotlib_available = False
@@ -92,6 +94,20 @@ def main():
     print("single scoring method:\n", scores)
     multi_scores = cross_validate(j48, X, y, cv=10, scoring=['accuracy'])
     print("multiple scoring methods\n", multi_scores)
+
+    helper.print_info("Loading iris toy dataset (and turning class into nominal one)")
+    X, y = load_iris(return_X_y=True)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42)
+    mn = MakeNominal(input_vars=[], output_var=True)
+    mn.fit(X_train, y_train)
+    X_train, y_train = mn.transform(X_train, y_train)
+    X_test, y_test = mn.transform(X_test, y_test)
+    j48 = WekaEstimator(classname="weka.classifiers.trees.J48")
+    j48.fit(X_train, y_train)
+    scores = j48.predict(X_test)
+    probas = j48.predict_proba(X_test)
+    for i, r in enumerate(X_test):
+        print(r, "->", scores[i], probas[i])
 
     # for testing native sklean classifier
     # from sklearn.svm import SVC
