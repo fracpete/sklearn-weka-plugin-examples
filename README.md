@@ -1,2 +1,2 @@
-# scikit-weka-examples
-Examples for using the [scikit-weka](https://github.com/fracpete/scikit-weka) library.
+# sklearn-weka-plugin-examples
+Examples for using the [sklearn-weka-plugin](https://github.com/fracpete/sklearn-weka-plugin) library.
