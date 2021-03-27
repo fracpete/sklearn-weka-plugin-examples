@@ -109,7 +109,7 @@ def main():
     for i, r in enumerate(X_test):
         print(r, "->", scores[i], probas[i])
 
-    # for testing native sklean classifier
+    # for testing native sklearn classifier
     # from sklearn.svm import SVC
     # helper.print_info("Building SVC")
     # svc = SVC(C=2.3, probability=True)
