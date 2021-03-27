@@ -1,10 +1,10 @@
 import os
-import scikit.weka.jvm as jvm
-import scikitwekaexamples.helper as helper
+import sklweka.jvm as jvm
+import sklwekaexamples.helper as helper
 import traceback
 
-from scikit.weka.preprocessing import WekaTransformer
-from scikit.weka.dataset import load_arff
+from sklweka.preprocessing import WekaTransformer
+from sklweka.dataset import load_arff
 
 
 def main():
@@ -15,7 +15,7 @@ def main():
     # regression
     bolts_file = helper.get_data_dir() + os.sep + "bolts.arff"
     helper.print_info("Loading dataset: " + bolts_file)
-    X, y, meta = load_arff(bolts_file, "last")
+    X, y, meta = load_arff(bolts_file, class_index="last")
 
     helper.print_info("Standardizing data")
     tr = WekaTransformer(classname="weka.filters.unsupervised.attribute.Standardize")

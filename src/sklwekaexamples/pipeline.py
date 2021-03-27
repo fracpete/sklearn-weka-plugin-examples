@@ -1,11 +1,11 @@
 import os
-import scikit.weka.jvm as jvm
-import scikitwekaexamples.helper as helper
+import sklweka.jvm as jvm
+import sklwekaexamples.helper as helper
 import traceback
 
-from scikit.weka.classifiers import WekaEstimator
-from scikit.weka.preprocessing import WekaTransformer
-from scikit.weka.dataset import load_arff
+from sklweka.classifiers import WekaEstimator
+from sklweka.preprocessing import WekaTransformer
+from sklweka.dataset import load_arff
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
@@ -18,7 +18,7 @@ def main():
 
     bolts_file = helper.get_data_dir() + os.sep + "bolts.arff"
     helper.print_info("Loading dataset: " + bolts_file)
-    X, y, meta = load_arff(bolts_file, "last")
+    X, y, meta = load_arff(bolts_file, class_index="last")
     X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42)
 
     # Weka pipeline

@@ -1,10 +1,10 @@
 import os
-import scikit.weka.jvm as jvm
-import scikitwekaexamples.helper as helper
+import sklweka.jvm as jvm
+import sklwekaexamples.helper as helper
 import traceback
 
-from scikit.weka.clusters import WekaCluster
-from scikit.weka.dataset import load_arff
+from sklweka.clusters import WekaCluster
+from sklweka.dataset import load_arff
 
 
 def main():
@@ -14,7 +14,7 @@ def main():
 
     iris_file = helper.get_data_dir() + os.sep + "iris.arff"
     helper.print_info("Loading dataset: " + iris_file)
-    X, y, meta = load_arff(iris_file, "last")
+    X, y, meta = load_arff(iris_file, class_index="last")
 
     helper.print_info("Simple K-Means")
     cl = WekaCluster(classname="weka.clusterers.SimpleKMeans", options=["-N", "3"])

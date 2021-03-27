@@ -1,11 +1,11 @@
 import os
-import scikit.weka.jvm as jvm
-import scikitwekaexamples.helper as helper
+import sklweka.jvm as jvm
+import sklwekaexamples.helper as helper
 import traceback
 
-from scikit.weka.classifiers import WekaEstimator
-from scikit.weka.dataset import load_arff, to_nominal_labels
-from scikit.weka.preprocessing import MakeNominal
+from sklweka.classifiers import WekaEstimator
+from sklweka.dataset import load_arff, to_nominal_labels
+from sklweka.preprocessing import MakeNominal
 from sklearn.model_selection import cross_validate, cross_val_score, train_test_split
 from sklearn import metrics
 from sklearn.datasets import load_iris
@@ -28,7 +28,7 @@ def main():
     # regression
     bolts_file = helper.get_data_dir() + os.sep + "bolts.arff"
     helper.print_info("Loading dataset: " + bolts_file)
-    X, y, meta = load_arff(bolts_file, "last")
+    X, y, meta = load_arff(bolts_file, class_index="last")
 
     helper.print_info("Building LinearRegression")
     lr = WekaEstimator(classname="weka.classifiers.functions.LinearRegression")
@@ -74,7 +74,7 @@ def main():
     # classification
     iris_file = helper.get_data_dir() + os.sep + "iris.arff"
     helper.print_info("Loading dataset: " + iris_file)
-    X, y, meta = load_arff(iris_file, "last")
+    X, y, meta = load_arff(iris_file, class_index="last")
     # byte strings as labels doesn't work?
     y = to_nominal_labels(y)
 

@@ -2,9 +2,9 @@ from setuptools import setup
 
 
 setup(
-    name="scikit-weka-examples",
-    description="Examples for the scikit-weka library.",
-    url="https://github.com/fracpete/scikit-weka-examples",
+    name="sklearn-weka-plugin-examples",
+    description="Examples for the sklearn-weka-plugin library.",
+    url="https://github.com/fracpete/sklearn-weka-plugin-examples",
     classifiers=[
         'Development Status :: 4 - Beta',
         'License :: OSI Approved :: GNU General Public License (GPL)',
@@ -16,12 +16,12 @@ setup(
         '': 'src'
     },
     packages=[
-        "scikitwekaexamples",
+        "sklwekaexamples",
     ],
     version="0.0.1",
     author='Peter "fracpete" Reutemann',
-    author_email='scikit-weka@fracpete.org',
+    author_email='sklweka@fracpete.org',
     install_requires=[
-        "scikit-weka>=0.0.1",
+        "sklweka>=0.0.1",
     ],
 )
