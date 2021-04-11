@@ -22,6 +22,6 @@ setup(
     author='Peter "fracpete" Reutemann',
     author_email='sklweka@fracpete.org',
     install_requires=[
-        "sklweka>=0.0.1",
+        "sklweka>=0.0.2",
     ],
 )

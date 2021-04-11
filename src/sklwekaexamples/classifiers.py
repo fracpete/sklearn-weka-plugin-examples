@@ -1,6 +1,8 @@
 import os
+import pickle
 import sklweka.jvm as jvm
 import sklwekaexamples.helper as helper
+import tempfile
 import traceback
 
 from sklweka.classifiers import WekaEstimator
@@ -118,6 +120,18 @@ def main():
     # probas = svc.predict_proba(X)
     # for i, r in enumerate(X):
     #     print(r, "->", scores[i], probas[i])
+
+    helper.print_info("Pickle J48")
+    X, y, meta = load_arff(iris_file, class_index="last")
+    y = to_nominal_labels(y)
+    j48 = WekaEstimator(classname="weka.classifiers.trees.J48", options=["-M", "3"])
+    j48.fit(X, y)
+    outfile = tempfile.gettempdir() + os.sep + "j48.model"
+    with open(outfile, "wb") as of:
+        pickle.dump(j48, of)
+    with open(outfile, "rb") as of:
+        j48_2 = pickle.load(of)
+        print(j48_2)
 
 
 if __name__ == "__main__":
