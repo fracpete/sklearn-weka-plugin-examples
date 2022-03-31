@@ -65,7 +65,7 @@ target/
 
 # other
 generated.arff
-
+blah*
 /bin/
 .classpath
 .project
