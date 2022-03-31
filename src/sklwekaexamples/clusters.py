@@ -31,7 +31,7 @@ def main():
     X, y, meta = load_arff(vote_file, class_index="last")
 
     helper.print_info("Simple K-Means (vote)")
-    cl = WekaCluster(classname="weka.clusterers.SimpleKMeans", options=["-N", "3"], nominal_input_vars=[x for x in range(X.shape[1])])
+    cl = WekaCluster(classname="weka.clusterers.SimpleKMeans", options=["-N", "3"], nominal_input_vars="first-last")
     print(cl.to_commandline())
     print(repr(cl))
     clusters = cl.fit_predict(X)
