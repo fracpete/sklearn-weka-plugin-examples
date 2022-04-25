@@ -18,10 +18,10 @@ setup(
     packages=[
         "sklwekaexamples",
     ],
-    version="0.0.2",
+    version="0.0.3",
     author='Peter "fracpete" Reutemann',
     author_email='sklweka@fracpete.org',
     install_requires=[
-        "sklweka>=0.0.5",
+        "sklweka>=0.0.6",
     ],
 )
