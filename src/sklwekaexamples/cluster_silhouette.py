@@ -101,7 +101,7 @@ for n_clusters in range_n_clusters:
     )
 
     # Labeling the clusters
-    centers = Instances(jobject=clusterer.jwrapper.getClusterCentroids().o)
+    centers = Instances(jobject=clusterer.jwrapper.getClusterCentroids())
     centers = centers.to_numpy(internal=True)
     # Draw white circles at cluster centers
     ax2.scatter(
